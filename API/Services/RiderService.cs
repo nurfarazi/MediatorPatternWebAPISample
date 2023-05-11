@@ -11,16 +11,23 @@ public class RiderService
         riders.Add(new Rider { Id = 1, Name = "Rider from constructor" });
     }
 
-    public void Create()
+    public async Task<List<Rider>> CreateAsync(Rider rider, CancellationToken cancellationToken)
     {
         // Add a rider
-        riders.Add(new Rider { Id = 1, Name = "Rider 1" });
+        riders.Add(rider);
         // log the action
         Console.WriteLine("Rider created");
+        
+        return riders;
     }
 
     public List<Rider> GetAsync()
     {
         return riders;
+    }
+
+    public async Task<Rider> GetByIdAsync(int requestId)
+    {
+        throw new NotImplementedException();
     }
 }
