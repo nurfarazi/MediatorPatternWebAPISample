@@ -4,7 +4,7 @@ namespace API.Services;
 
 public class RiderService
 {
-    public List<Rider> riders = new List<Rider>();
+    public List<Rider> riders = new();
     public RiderService()
     {
         // Temporary data

@@ -1,26 +1,28 @@
+using API.Entity;
+using API.Handlers;
 using API.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class RiderController : ControllerBase
 {
-    private readonly ILogger<RiderController> _logger;
     private RiderService _riderService;
+    private readonly IMediator mediator;
 
-    public RiderController(ILogger<RiderController> logger, RiderService riderService)
+    public RiderController(RiderService riderService, IMediator mediator)
     {
-        _logger = logger;
         _riderService = riderService;
+        this.mediator = mediator;
     }
 
     [HttpGet]
-    public IActionResult GetAsync()
+    public async Task<List<Rider>> GetAsync()
     {
-        _riderService.GetAsync();
-        return Ok();
+        return await mediator.Send(new GetRiders.Query());
     }
     
     [HttpPost]
@@ -28,5 +30,11 @@ public class RiderController : ControllerBase
     {
         _riderService.Create();
         return Ok();
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<Rider> GetByIdAsync(int id)
+    {
+        return await this.mediator.Send(new GetRiderById.Query { Id = id });
     }
 }
