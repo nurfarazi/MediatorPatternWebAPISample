@@ -24,14 +24,14 @@ public class RiderController : ControllerBase
     {
         return await mediator.Send(new GetRiders.Query());
     }
-    
+
     [HttpPost]
-    public IActionResult CreateAsync()
+    public async Task<IActionResult> CreateAsync([FromBody] Rider rider)
     {
-        _riderService.Create();
+        await this.mediator.Send(new CreateRider.Command { Id = rider.Id });
         return Ok();
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Rider> GetByIdAsync(int id)
     {
