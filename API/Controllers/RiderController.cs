@@ -37,4 +37,11 @@ public class RiderController : ControllerBase
     {
         return await this.mediator.Send(new GetRiderById.Query { Id = id });
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int Id)
+    {
+        await this.mediator.Send(new DeleteRider.Command { Id = Id });
+        return Ok();
+    }
 }

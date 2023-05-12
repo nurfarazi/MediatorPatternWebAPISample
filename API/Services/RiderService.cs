@@ -1,12 +1,14 @@
 using API.Entity;
+using Bogus;
 
 namespace API.Services;
 
 public class RiderService
 {
-    public List<Rider> riders = new();
+    private List<Rider> riders = new();
     public RiderService()
     {
+        Console.WriteLine("RiderService created");
         // Temporary data
         riders.Add(new Rider { Id = 1, Name = "Rider from constructor" });
     }
@@ -27,6 +29,11 @@ public class RiderService
     }
 
     public async Task<Rider> GetByIdAsync(int requestId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
